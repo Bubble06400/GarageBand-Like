@@ -5,7 +5,7 @@ var audioCtx = window.AudioContext || window.webkitAudioContext;
 var audioContext;
 
     function init(){
-        console.log("PAGE CHARGéE");
+        console.log("PAGE CHARGEE");
 
         audioContext = new audioCtx();
         canvas = document.querySelector("#CanvasPiano");
@@ -34,7 +34,8 @@ var audioContext;
                 oscillateur.frequency.value = 261,63;
                 oscillateur.start();
                 break;
-                case 90: console.log("RE");
+                case 90: 
+                console.log("RE");
                 oscillateur.type='sine';
                 oscillateur.frequency.value = 293,66;
                 oscillateur.start();
