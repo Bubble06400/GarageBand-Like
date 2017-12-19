@@ -1,73 +1,137 @@
-window.onload = init; 
+window.onload = init;
+
 let canvas, ctx;
-// LES DEUX PROCHAINES LIGNES PERMETTENT D'INITIALISER LE CONTEXTE AUDIO. 
-var audioCtx = window.AudioContext || window.webkitAudioContext;
-var audioContext;
+let audio_context;
 
-    function init(){
-        console.log("PAGE CHARGEE");
+let oscillations = [];
+let frequences = [261.63, 277.18, 293.66, 311.13, 329.63, 349.23, 369.99, 392, 415.30, 440, 466.16, 493.88, 523.25];
+let gains = [];
 
-        audioContext = new audioCtx();
-        canvas = document.querySelector("#CanvasPiano");
+function init(){
+    console.log("Page chargée");
 
-        ctx = canvas.getContext("2d");
-      
-        drawPiano();
-        InputTouche();
-    } 
+    canvas = document.querySelector("#CanvasPiano");
+    ctx = canvas.getContext("2d");
 
-    function InputTouche(){
-        window.addEventListener('keydown', function(event){
-         //l'oscillateur permet de "creer" virtuellement un son a partir d'une sinusoidale
-        var oscillateur = audioContext.createOscillator();
-        //le gain servira au volume  
-        var noeudGain = audioContext.createGain();
-      
-        //Connection aux speakers
-        //La methode connect permet de lier les différents noeuds (étapes du son (effets, gain, etc..))dans l'ordre d'écriture 
-        oscillateur.connect(noeudGain);    
-        noeudGain.connect(audioContext.destination);
-            switch(event.keyCode){
-                case 65: 
-                console.log("DO");
-                oscillateur.type='sine';//Definini l'oscillateur comme fonctionnant grace a une sinusoïdale !
-                oscillateur.frequency.value = 261,63;
-                oscillateur.start();
-                break;
-                case 90: 
-                console.log("RE");
-                oscillateur.type='sine';
-                oscillateur.frequency.value = 293,66;
-                oscillateur.start();
-                 break;
-                case 69: console.log("MI"); 
-                oscillateur.type='sine';
-                oscillateur.frequency.value = 329,63;
-                oscillateur.start();
-                break;
-                case 82: console.log("FA"); 
-                oscillateur.type='sine';
-                oscillateur.frequency.value = 349,23;
-                oscillateur.start();
-                break;
-                case 84: console.log("SOL");
-                oscillateur.type='sine';
-                oscillateur.frequency.value = 392,00;
-                oscillateur.start();
-                 break;
-                case 89: console.log("LA");
-                oscillateur.type='sine';
-                oscillateur.frequency.value = 440,00;
-                oscillateur.start();
-                 break;
-                case 85: console.log("SI"); 
-                oscillateur.type='sine';
-                oscillateur.frequency.value = 493,88;
-                oscillateur.start();
-                break;
-            }
-        }, false)
+    audio_context = new AudioContext();
+    
+    GraphAudio(13);
+
+    InputNotes();
+
+    drawPiano();
+
+}
+
+function GraphAudio(nTouches){
+    for(let i = 0; i < nTouches; i++){
+        
+       /* let mod = document.getElementById('modulation');
+        console.log(mod); */
+
+        oscillations[i] = audio_context.createOscillator();
+        
+        gains[i] = audio_context.createGain();
+        gains[i].gain.value = 0;
+
+        oscillations[i].frequency.value = frequences[i] /* * Math.pow(2, mod)*/;
+        oscillations[i].connect(gains[i]);
+
+        gains[i].connect(audio_context.destination);
+
+        oscillations[i].start();
     }
+}
+
+function InputNotes(){
+    window.addEventListener('keydown', function(event){
+        if(event.keyCode === 65){
+            console.log("DO");
+            gains[0].gain.value = 1;
+        }else if(event.keyCode === 50){
+            console.log("DO# / REb");
+            gains[1].gain.value = 1;
+        }else if (event.keyCode === 90) {
+            console.log("RE");
+            gains[2].gain.value = 1;
+          } else if (event.keyCode === 51) {
+            console.log("RE# / MIb");
+            gains[3].gain.value = 1;
+          } else if (event.keyCode === 69) {
+            console.log("MI");
+            gains[4].gain.value = 1;
+          } else if (event.keyCode === 82){
+              console.log("FA");
+              gains[5].gain.value = 1;
+          } else if(event.keyCode === 53){
+              console.log("FA#");
+              gains[6].gain.value = 1;
+          } else if(event.keyCode === 84){
+              console.log("SOL");
+              gains[7].gain.value = 1;
+          }else if(event.keyCode === 54){
+            console.log("SOL# / LAb");
+            gains[8].gain.value = 1;
+        }else if (event.keyCode === 89) {
+            console.log("LA");
+            gains[9].gain.value = 1;
+          } else if (event.keyCode === 55) {
+            console.log("LA# / SIb");
+            gains[10].gain.value = 1;
+          } else if (event.keyCode === 85) {
+            console.log("SI");
+            gains[11].gain.value = 1;
+          } else if (event.keyCode === 73){
+              console.log("DO2");
+              gains[12].gain.value = 1;
+          } 
+          
+    }, false);
+
+    window.addEventListener('keyup', function(event){
+        if(event.keyCode === 65){
+            console.log("DO");
+            gains[0].gain.value = 0;
+        }else if(event.keyCode === 50){
+            console.log("DO# / REb");
+            gains[1].gain.value = 0;
+        }else if (event.keyCode === 90) {
+            console.log("RE");
+            gains[2].gain.value = 0;
+          } else if (event.keyCode === 51) {
+            console.log("RE# / MIb");
+            gains[3].gain.value = 0;
+          } else if (event.keyCode === 69) {
+            console.log("MI");
+            gains[4].gain.value = 0;
+          } else if (event.keyCode === 82){
+              console.log("FA");
+              gains[5].gain.value = 0;
+          } else if(event.keyCode === 53){
+              console.log("FA#");
+              gains[6].gain.value = 0;
+          } else if(event.keyCode === 84){
+              console.log("SOL");
+              gains[7].gain.value = 0;
+          }else if(event.keyCode === 54){
+            console.log("SOL# / LAb");
+            gains[8].gain.value = 0;
+          }else if (event.keyCode === 89) {
+            console.log("LA");
+            gains[9].gain.value = 0;
+          } else if (event.keyCode === 55) {
+            console.log("LA# / SIb");
+            gains[10].gain.value = 0;
+          } else if (event.keyCode === 85) {
+            console.log("SI");
+            gains[11].gain.value = 0;
+          } else if (event.keyCode === 73){
+              console.log("DO2");
+              gains[12].gain.value = 0;
+          } 
+          
+    }, false);
+}
 
     function drawPiano(){
         ctx.save();

@@ -8,9 +8,11 @@
     <body>
         TEST Piano Web
         <p>Bienvenue sur notre site ou vous pourrez jouer du piano juste avec les touches de votre clavier</p>
+    	Modulation des notes </br>
+        <input type="range" name="modulation" id="modulation" value="2" min="0" max="7">
         <div onkeydown= "setNote(event.key)"></div>
         <canvas id="CanvasPiano" width="1600" height="400"></canvas>
-        <script src="test2.js"></script> 
+        <script src="JS.js"></script> 
 
     </body>
 </html>
