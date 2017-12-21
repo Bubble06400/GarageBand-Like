@@ -6,6 +6,8 @@ let audio_context;
 let oscillations = [];
 let frequences = [261.63, 277.18, 293.66, 311.13, 329.63, 349.23, 369.99, 392, 415.30, 440, 466.16, 493.88, 523.25];
 let gains = [];
+let tableauToucheB = [];
+let tableauToucheN = [];
 
 function init(){
     console.log("Page chargée");
@@ -18,6 +20,15 @@ function init(){
     GraphAudio(13);
 
     InputNotes();
+
+    createToucheB(8);
+    createToucheN(5);
+    tableauToucheB.forEach(function(r) {
+      r.draw(ctx);
+    });
+    tableauToucheN.forEach(function(r) {
+      r.draw(ctx);
+    });
 
 }
 
@@ -130,3 +141,76 @@ function InputNotes(){
           
     }, false);
 }
+ function createToucheB(nbr){
+  for (let i = 0; i < 8; i++) {
+  let x = 0;
+  let y = 0;
+  let w = 50;
+  let h = 300;
+  let couleurB;
+  let touchesB = new toucheB(x, y, w, h, couleurB);
+
+  tableauToucheB.push(toucheB);
+  }
+}
+ function createToucheN(nbr){
+  for (let i = 0; i < 5; i++) {
+  let x = 0;
+  let y = 0;
+  let w = 50;
+  let h = 300;
+  let couleurN;
+  let touchesN = new toucheN(x, y, w, h);
+
+  tableauToucheB.push(toucheN);
+  }
+
+ }
+ class touche{
+  constructor(x, y, w, h){
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+  }
+ }
+ class toucheB extends touche{
+  constructor(x, y, w, h, couleurB){
+    super(x, y, w, h)
+    this.couleurB = couleurB;
+  }
+  draw(ctx){
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    
+    ctx.fillStyle = this.couleurB;
+    ctx.fillRect(0, 0,60, 300);
+    
+    ctx.restore();
+  }
+ }
+ class toucheN extends touche{
+  constructor(x, y, w, h, couleurN){
+    super(x, y, w, h)
+    this.couleurN = couleurN;
+  }
+  draw(ctx){
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    
+    ctx.fillStyle = this.couleurN;
+    ctx.fillRect(0, 0,60, 300);
+    
+    ctx.restore();
+  }
+ }
+/*function drawPiano(){
+        ctx.save();
+
+        ctx.translate(0,0);
+        
+        ctx.fillStyle = "lightGrey";
+        ctx.fillRect(0, 0, 45, 150);
+
+        ctx.restore();
+    }*/
