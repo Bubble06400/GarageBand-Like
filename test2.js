@@ -142,27 +142,32 @@ function InputNotes(){
     }, false);
 }
  function createToucheB(nbr){
+  let x = -100;
   for (let i = 0; i < 8; i++) {
-  let x = 0;
+  x = x + 100;
   let y = 0;
   let w = 50;
   let h = 300;
-  let couleurB;
+  let couleurB = 'rgb(250, 250, 250)';
   let touchesB = new toucheB(x, y, w, h, couleurB);
 
-  tableauToucheB.push(toucheB);
+  tableauToucheB.push(touchesB);
   }
 }
  function createToucheN(nbr){
+  let x = -30;
   for (let i = 0; i < 5; i++) {
-  let x = 0;
+    if(i == 3){
+      x = x +100;
+    }
+  x = x + 100;
   let y = 0;
   let w = 50;
   let h = 300;
-  let couleurN;
+  let couleurN = "black";
   let touchesN = new toucheN(x, y, w, h);
 
-  tableauToucheB.push(toucheN);
+  tableauToucheB.push(touchesN);
   }
 
  }
@@ -184,8 +189,11 @@ function InputNotes(){
     ctx.translate(this.x, this.y);
     
     ctx.fillStyle = this.couleurB;
-    ctx.fillRect(0, 0,60, 300);
-    
+    ctx.beginPath();
+    ctx.lineWidth="1";
+    ctx.strokeStyle ="black";
+    ctx.fillRect(0, 0,100, 350);
+    ctx.strokeRect(0, 0,100, 350);
     ctx.restore();
   }
  }
@@ -199,7 +207,9 @@ function InputNotes(){
     ctx.translate(this.x, this.y);
     
     ctx.fillStyle = this.couleurN;
-    ctx.fillRect(0, 0,60, 300);
+    
+    ctx.fillRect(0, 0,60, 200);
+    
     
     ctx.restore();
   }
