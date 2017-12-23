@@ -157,7 +157,7 @@ function InputNotes(){
  function createToucheN(nbr){
   let x = -30;
   for (let i = 0; i < 5; i++) {
-    if(i == 3){
+    if(i == 2){
       x = x +100;
     }
   x = x + 100;

@@ -1,3 +1,19 @@
 #CanvasPiano{
     border: 1px solid; 
+};
+
+#BlancheEnfoncee{
+    color: grey;
+}
+
+#NoirEnfoncee{
+    color: dimgrey;
+}
+
+#Blanche{
+    color: white;
+}
+
+#Noir{
+    color:black;
 }
