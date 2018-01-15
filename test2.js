@@ -22,8 +22,16 @@ function init(){
 
     createToucheB(8);
     createToucheN(5);
-    tableauTouches.forEach(function(r){   r.draw(ctx);    });
+    animation();
     console.log(tableauTouches);
+}
+
+function animation(){
+  ctx.clearRect(0, 0, canvas.width, canvas.heigth);
+  
+  tableauTouches.forEach(function(r){   r.draw(ctx);    });
+
+  requestAnimationFrame(animation);
 }
 
 function GraphAudio(nTouches){
@@ -46,9 +54,7 @@ function GraphAudio(nTouches){
     }
   }
 
-function ChangeColor(){
 
-}
 
 function InputNotes(){
     window.addEventListener('keydown', function(event){
@@ -60,15 +66,20 @@ function InputNotes(){
         }else if(event.keyCode === 50){
             console.log("DO# / REb");
             gains[1].gain.value = 1;
+            tableauTouches[1].couleur = "lightgrey";  
         }else if (event.keyCode === 90) {
             console.log("RE");
             gains[2].gain.value = 1;
+            tableauTouches[1].couleur = "lightgrey";  
+            console.log(tableauTouches[2]);
           } else if (event.keyCode === 51) {
             console.log("RE# / MIb");
             gains[3].gain.value = 1;
           } else if (event.keyCode === 69) {
             console.log("MI");
             gains[4].gain.value = 1;
+            tableauTouches[4].couleur = "lightgrey";  
+            console.log(tableauTouches[4]);
           } else if (event.keyCode === 82){
               console.log("FA");
               gains[5].gain.value = 1;
@@ -102,19 +113,21 @@ function InputNotes(){
             console.log("DO");
             gains[0].gain.value = 0;
             tableauTouches[0].couleur = "white"; 
-            console.log(tableauTouches);
         }else if(event.keyCode === 50){
             console.log("DO# / REb");
             gains[1].gain.value = 0;
+            tableauTouches[1].couleur = "white"; 
         }else if (event.keyCode === 90) {
             console.log("RE");
             gains[2].gain.value = 0;
+            tableauTouches[1].couleur = "white"; 
           } else if (event.keyCode === 51) {
             console.log("RE# / MIb");
             gains[3].gain.value = 0;
           } else if (event.keyCode === 69) {
             console.log("MI");
             gains[4].gain.value = 0;
+            tableauTouches[2].couleur = "white"; 
           } else if (event.keyCode === 82){
               console.log("FA");
               gains[5].gain.value = 0;
