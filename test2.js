@@ -6,8 +6,7 @@ let audio_context;
 let oscillations = [];
 let frequences = [261.63, 277.18, 293.66, 311.13, 329.63, 349.23, 369.99, 392, 415.30, 440, 466.16, 493.88, 523.25];
 let gains = [];
-let tableauToucheB = [];
-let tableauToucheN = [];
+let tableauTouches = [];
 
 function init(){
     console.log("Page chargée");
@@ -23,13 +22,8 @@ function init(){
 
     createToucheB(8);
     createToucheN(5);
-    tableauToucheB.forEach(function(r) {
-      r.draw(ctx);
-    });
-    tableauToucheN.forEach(function(r) {
-      r.draw(ctx);
-    });
-
+    tableauTouches.forEach(function(r){   r.draw(ctx);    });
+    console.log(tableauTouches);
 }
 
 function GraphAudio(nTouches){
@@ -50,6 +44,10 @@ function GraphAudio(nTouches){
 
         oscillations[i].start();
     }
+  }
+
+function ChangeColor(){
+
 }
 
 function InputNotes(){
@@ -57,6 +55,8 @@ function InputNotes(){
         if(event.keyCode === 65){
             console.log("DO");
             gains[0].gain.value = 1;
+            tableauTouches[0].couleur = "lightgrey";  
+            console.log(tableauTouches[0]);
         }else if(event.keyCode === 50){
             console.log("DO# / REb");
             gains[1].gain.value = 1;
@@ -101,6 +101,8 @@ function InputNotes(){
         if(event.keyCode === 65){
             console.log("DO");
             gains[0].gain.value = 0;
+            tableauTouches[0].couleur = "white"; 
+            console.log(tableauTouches);
         }else if(event.keyCode === 50){
             console.log("DO# / REb");
             gains[1].gain.value = 0;
@@ -148,10 +150,11 @@ function InputNotes(){
   let y = 0;
   let w = 50;
   let h = 300;
-  let couleurB = 'rgb(250, 250, 250)';
-  let touchesB = new toucheB(x, y, w, h, couleurB);
+  let couleur = 'white';
+  let touchesB = new Touche(x, y, w, h, couleur);
 
-  tableauToucheB.push(touchesB);
+  tableauTouches.push(touchesB);
+  console.log("Touche blanche crée");
   }
 }
  function createToucheN(nbr){
@@ -164,56 +167,85 @@ function InputNotes(){
   let y = 0;
   let w = 50;
   let h = 300;
-  let couleurN = "black";
-  let touchesN = new toucheN(x, y, w, h);
+  let couleur = "black";
+  let touchesN = new Touche(x, y, w, h, couleur);
 
-  tableauToucheB.push(touchesN);
-  }
+  tableauTouches.push(touchesN);
+  console.log("Touche noire crée");
 
- }
- class touche{
-  constructor(x, y, w, h){
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
   }
  }
- class toucheB extends touche{
-  constructor(x, y, w, h, couleurB){
-    super(x, y, w, h)
-    this.couleurB = couleurB;
-  }
-  draw(ctx){
+
+ class Touche{
+   constructor(x,y,w,h,couleur){
+     this.x = x;
+     this.y = y;
+     this.w = w;
+     this.h = h;
+     this.couleur = couleur;
+   }
+   draw(ctx){
     ctx.save();
     ctx.translate(this.x, this.y);
     
-    ctx.fillStyle = this.couleurB;
+    ctx.fillStyle = this.couleur;
     ctx.beginPath();
     ctx.lineWidth="1";
     ctx.strokeStyle ="black";
-    ctx.fillRect(0, 0,100, 350);
-    ctx.strokeRect(0, 0,100, 350);
+      if(this.couleur == "black"){
+        ctx.fillRect(0, 0,60, 200);
+      }
+      else{
+        ctx.fillRect(0, 0,100, 350);
+        ctx.strokeRect(0, 0,100, 350);
+      }
     ctx.restore();
   }
  }
- class toucheN extends touche{
-  constructor(x, y, w, h, couleurN){
-    super(x, y, w, h)
-    this.couleurN = couleurN;
-  }
-  draw(ctx){
-    ctx.save();
-    ctx.translate(this.x, this.y);
-    
-    ctx.fillStyle = this.couleurN;
-    
-    ctx.fillRect(0, 0,60, 200);
-    
-    
-    ctx.restore();
-  }
- }
+                                                                                        /*class touche{
+                                                                                          constructor(x, y, w, h){
+                                                                                            this.x = x;
+                                                                                            this.y = y;
+                                                                                            this.w = w;
+                                                                                            this.h = h;
+                                                                                          }
+                                                                                        }
+
+                                                                                      /* class toucheB extends touche{
+                                                                                      constructor(x, y, w, h, couleurB){
+                                                                                        super(x, y, w, h)
+                                                                                        this.couleurB = couleurB;
+                                                                                      }
+                                                                                      draw(ctx){
+                                                                                        ctx.save();
+                                                                                        ctx.translate(this.x, this.y);
+                                                                                        
+                                                                                        ctx.fillStyle = this.couleurB;
+                                                                                        ctx.beginPath();
+                                                                                        ctx.lineWidth="1";
+                                                                                        ctx.strokeStyle ="black";
+                                                                                        ctx.fillRect(0, 0,100, 350);
+                                                                                        ctx.strokeRect(0, 0,100, 350);
+                                                                                        ctx.restore();
+                                                                                      }
+                                                                                    }
+                                                                                    class toucheN extends touche{
+                                                                                      constructor(x, y, w, h, couleurN){
+                                                                                        super(x, y, w, h)
+                                                                                        this.couleurN = couleurN;
+                                                                                      }
+                                                                                      draw(ctx){
+                                                                                        ctx.save();
+                                                                                        ctx.translate(this.x, this.y);
+                                                                                        
+                                                                                        ctx.fillStyle = this.couleurN;
+                                                                                        
+                                                                                        ctx.fillRect(0, 0,60, 200);
+                                                                                        
+                                                                                        
+                                                                                        ctx.restore();
+                                                                                      }
+                                                                                    }
 /*function drawPiano(){
         ctx.save();
 
