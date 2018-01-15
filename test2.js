@@ -66,44 +66,51 @@ function InputNotes(){
         }else if(event.keyCode === 50){
             console.log("DO# / REb");
             gains[1].gain.value = 1;
-            tableauTouches[1].couleur = "lightgrey";  
         }else if (event.keyCode === 90) {
             console.log("RE");
             gains[2].gain.value = 1;
             tableauTouches[1].couleur = "lightgrey";  
-            console.log(tableauTouches[2]);
           } else if (event.keyCode === 51) {
             console.log("RE# / MIb");
             gains[3].gain.value = 1;
           } else if (event.keyCode === 69) {
             console.log("MI");
             gains[4].gain.value = 1;
-            tableauTouches[4].couleur = "lightgrey";  
+            tableauTouches[2].couleur = "lightgrey"; 
             console.log(tableauTouches[4]);
           } else if (event.keyCode === 82){
               console.log("FA");
               gains[5].gain.value = 1;
+              tableauTouches[3].couleur = "lightgrey"; 
           } else if(event.keyCode === 53){
               console.log("FA#");
               gains[6].gain.value = 1;
           } else if(event.keyCode === 84){
               console.log("SOL");
               gains[7].gain.value = 1;
+              tableauTouches[4].couleur = "lightgrey"; 
+
           }else if(event.keyCode === 54){
             console.log("SOL# / LAb");
             gains[8].gain.value = 1;
         }else if (event.keyCode === 89) {
             console.log("LA");
             gains[9].gain.value = 1;
+            tableauTouches[5].couleur = "lightgrey"; 
+
           } else if (event.keyCode === 55) {
             console.log("LA# / SIb");
             gains[10].gain.value = 1;
           } else if (event.keyCode === 85) {
             console.log("SI");
             gains[11].gain.value = 1;
+            tableauTouches[6].couleur = "lightgrey"; 
+
           } else if (event.keyCode === 73){
               console.log("DO2");
               gains[12].gain.value = 1;
+              tableauTouches[7].couleur = "lightgrey"; 
+
           } 
           
     }, false);
@@ -116,7 +123,6 @@ function InputNotes(){
         }else if(event.keyCode === 50){
             console.log("DO# / REb");
             gains[1].gain.value = 0;
-            tableauTouches[1].couleur = "white"; 
         }else if (event.keyCode === 90) {
             console.log("RE");
             gains[2].gain.value = 0;
@@ -131,27 +137,32 @@ function InputNotes(){
           } else if (event.keyCode === 82){
               console.log("FA");
               gains[5].gain.value = 0;
+              tableauTouches[3].couleur = "white"; 
           } else if(event.keyCode === 53){
               console.log("FA#");
               gains[6].gain.value = 0;
           } else if(event.keyCode === 84){
               console.log("SOL");
               gains[7].gain.value = 0;
+              tableauTouches[4].couleur = "white"; 
           }else if(event.keyCode === 54){
             console.log("SOL# / LAb");
             gains[8].gain.value = 0;
           }else if (event.keyCode === 89) {
             console.log("LA");
             gains[9].gain.value = 0;
+            tableauTouches[5].couleur = "white"; 
           } else if (event.keyCode === 55) {
             console.log("LA# / SIb");
             gains[10].gain.value = 0;
           } else if (event.keyCode === 85) {
             console.log("SI");
             gains[11].gain.value = 0;
+            tableauTouches[6].couleur = "white"; 
           } else if (event.keyCode === 73){
               console.log("DO2");
               gains[12].gain.value = 0;
+              tableauTouches[7].couleur = "white"; 
           } 
           
     }, false);
